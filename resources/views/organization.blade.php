@@ -10,97 +10,47 @@
 
 <div class="promo-section">
     <div class="promo-board">
-
-        <a href="https://instagram.com/" target="_blank" class="promo-card card-1">
+        @foreach($organizations->take(4) as $index => $org)
+        <a href="{{ $org->instagram_link ?? '#' }}" target="_blank" class="promo-card card-{{ $index + 1 }}">
             <div class="card-image">
-                <img src="https://via.placeholder.com/400/333/fff?text=DPM" alt="DPM">
+                @if($org->image)
+                    <img src="{{ Storage::url($org->image) }}" alt="{{ $org->card_label }}">
+                @else
+                    <img src="https://via.placeholder.com/400/333/fff?text={{ urlencode($org->card_label ?? 'ORG') }}" alt="{{ $org->card_label }}">
+                @endif
             </div>
             <span class="card-pin"></span>
-            <span class="card-label">DPM FILKOM</span>
+            <span class="card-label">{{ $org->card_label ?? $org->position }}</span>
         </a>
-
-        <a href="https://instagram.com/" target="_blank" class="promo-card card-2">
-            <div class="card-image">
-                <img src="https://via.placeholder.com/400/555/fff?text=INAGURASI" alt="Inagurasi">
-            </div>
-            <span class="card-pin"></span>
-            <span class="card-label">Ketupel Inagurasi</span>
-        </a>
-
-        <a href="https://instagram.com/" target="_blank" class="promo-card card-3">
-            <div class="card-image">
-                <img src="https://via.placeholder.com/400/777/fff?text=HACKATHON" alt="Hackathon">
-            </div>
-            <span class="card-pin"></span>
-            <span class="card-label">Staff Hackathon</span>
-        </a>
-
-        <a href="https://instagram.com/" target="_blank" class="promo-card card-4">
-            <div class="card-image">
-                <img src="https://via.placeholder.com/400/222/fff?text=KMK" alt="KMK">
-            </div>
-            <span class="card-pin"></span>
-            <span class="card-label">KMK FILKOM</span>
-        </a>
-
+        @endforeach
     </div>
 </div>
 
 <section class="container">
     <h2 class="subsection-title">Pengalaman Organisasi</h2>
     <div class="org-list">
-
+        @foreach($organizations as $org)
         <div class="org-item">
-            <div class="org-date">2025 - 2026</div>
+            <div class="org-date">{{ $org->year_range }}</div>
             <div class="org-details">
-                <h3>Dewan DPM FILKOM UB & Ketua Badan Aspirasi</h3>
-                <span class="org-place">Universitas Brawijaya</span>
-                <p>Bertanggung jawab memimpin 6 anggota, mengelola aspirasi, sekaligus menjadi satu dari sembilan orang yang terpilih menjadi dewan melalui proses demokrasi. Berhasil meningkatkan aspirasi mahasiswa sebesar 90%.</p>
+                <h3>{{ $org->position }}</h3>
+                <span class="org-place">{{ $org->institution }}</span>
+                <p>{{ $org->description }}</p>
             </div>
         </div>
-
-        <div class="org-item">
-            <div class="org-date">2024 - 2025</div>
-            <div class="org-details">
-                <h3>Staff Ahli Biro Komunikasi DPM FILKOM UB</h3>
-                <span class="org-place">Universitas Brawijaya</span>
-                <p>Mengatur dan menyebarluaskan program kerja dari DPM FILKOM UB, menjadi wajah lembaga, dan menjadi penanggung jawab pengajuan konten feeds ig serta video.</p>
-            </div>
-        </div>
-
-        <div class="org-item">
-            <div class="org-date">2024 - 2025</div>
-            <div class="org-details">
-                <h3>BPH Minat Bakat KMK FILKOM UB</h3>
-                <span class="org-place">Universitas Brawijaya</span>
-                <p>Menjadi penyalur minat dan bakat dari anggota KMK FILKOM UB, dan menjadi pelaksana event minat bakat untuk KMK FILKOM UB.</p>
-            </div>
-        </div>
-
+        @endforeach
     </div>
 
     <div class="committee-section">
         <h2 class="subsection-title">Riwayat Kepanitiaan</h2>
         <div class="committee-list">
-
+            @foreach($committees as $committee)
             <div class="committee-item">
-                <span class="c-year">2024</span>
-                <span class="c-role">Ketua Pelaksana</span>
-                <span class="c-event">Inagurasi FILKOM 2024</span>
+                <span class="c-year">{{ $committee->year }}</span>
+                <span class="c-role">{{ $committee->role }}</span>
+                <span class="c-event">{{ $committee->event }}</span>
             </div>
-
-            <div class="committee-item">
-                <span class="c-year">2023</span>
-                <span class="c-role">Staff Divisi Acara</span>
-                <span class="c-event">HACKATHON UB 5.0</span>
-            </div>
-
-            <div class="committee-item">
-                <span class="c-year">2023</span>
-                <span class="c-role">Koordinator Lapangan</span>
-                <span class="c-event">Olimpiade TI Nasional</span>
-            </div>
-
+            @endforeach
         </div>
     </div>
 </section>

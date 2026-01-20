@@ -7,7 +7,6 @@
 
     <!-- Vite CSS & JS -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
 </head>
 <body>
 
@@ -27,13 +26,22 @@
 
     <footer>
         <div class="container">
-            <p>Mari Terhubung: <a href="mailto:email@contoh.com">email@contoh.com</a></p>
+            @php
+                $profile = App\Models\Profile::first();
+            @endphp
+            <p>Mari Terhubung: <a href="mailto:{{ $profile->email ?? 'email@contoh.com' }}">{{ $profile->email ?? 'email@contoh.com' }}</a></p>
             <div class="socials">
-                <a href="#">LinkedIn</a>
-                <a href="#">GitHub</a>
-                <a href="#">Instagram</a>
+                @if($profile && $profile->linkedin)
+                    <a href="{{ $profile->linkedin }}" target="_blank">LinkedIn</a>
+                @endif
+                @if($profile && $profile->github)
+                    <a href="{{ $profile->github }}" target="_blank">GitHub</a>
+                @endif
+                @if($profile && $profile->instagram)
+                    <a href="{{ $profile->instagram }}" target="_blank">Instagram</a>
+                @endif
             </div>
-            <p class="copyright">&copy; 2025 Nama Anda. Dibuat dengan <span style="color:#e25555;">&hearts;</span></p>
+            <p class="copyright">&copy; 2025 {{ $profile->name ?? 'Nama Anda' }}. Dibuat dengan <span style="color:#e25555;">&hearts;</span></p>
         </div>
     </footer>
 

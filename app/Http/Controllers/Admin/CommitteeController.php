@@ -3,63 +3,58 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Committee;
 use Illuminate\Http\Request;
 
 class CommitteeController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-        //
+        $committees = Committee::orderBy('order')->get();
+        return view('admin.committees.index', compact('committees'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
-        //
+        return view('admin.committees.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+            'year' => 'required',
+            'role' => 'required',
+            'event' => 'required',
+            'order' => 'nullable|integer'
+        ]);
+
+        Committee::create($validated);
+
+        return redirect()->route('admin.committees.index')->with('success', 'Committee berhasil ditambahkan!');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
+    public function edit(Committee $committee)
     {
-        //
+        return view('admin.committees.edit', compact('committee'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
+    public function update(Request $request, Committee $committee)
     {
-        //
+        $validated = $request->validate([
+            'year' => 'required',
+            'role' => 'required',
+            'event' => 'required',
+            'order' => 'nullable|integer'
+        ]);
+
+        $committee->update($validated);
+
+        return redirect()->route('admin.committees.index')->with('success', 'Committee berhasil diupdate!');
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
+    public function destroy(Committee $committee)
     {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
+        $committee->delete();
+        return redirect()->route('admin.committees.index')->with('success', 'Committee berhasil dihapus!');
     }
 }

@@ -9,40 +9,32 @@
 </section>
 
 <section class="container">
-    <div class="projects-grid">
-        <div class="project-card">
-            <h3>Sistem Manajemen IoT</h3>
-            <p>Platform monitoring perangkat IoT realtime menggunakan protokol MQTT dan dashboard analitik.</p>
-            <div class="tags">
-                <span>Laravel</span><span>Vue.js</span><span>MQTT</span>
+    @if($projects->count() > 0)
+        <div class="projects-grid">
+            @foreach($projects as $project)
+            <div class="project-card">
+                <h3>{{ $project->title }}</h3>
+                <p>{{ $project->description }}</p>
+                <div class="tags">
+                    @foreach($project->tags as $tag)
+                        <span>{{ $tag }}</span>
+                    @endforeach
+                </div>
+                <div class="project-links">
+                    @if($project->code_link)
+                        <a href="{{ $project->code_link }}" target="_blank">Lihat Code</a>
+                    @endif
+                    @if($project->demo_link)
+                        <a href="{{ $project->demo_link }}" target="_blank">Demo</a>
+                    @endif
+                </div>
             </div>
-            <div class="project-links">
-                <a href="#">Lihat Code</a>
-                <a href="#">Demo</a>
-            </div>
+            @endforeach
         </div>
-
-        <div class="project-card">
-            <h3>E-Commerce API</h3>
-            <p>RESTful API untuk toko online dengan integrasi payment gateway dan keamanan OAuth2.</p>
-            <div class="tags">
-                <span>Node.js</span><span>Express</span><span>MongoDB</span>
-            </div>
-            <div class="project-links">
-                <a href="#">Lihat Code</a>
-            </div>
+    @else
+        <div style="text-align: center; padding: 60px 20px;">
+            <p style="color: #666;">Belum ada project yang ditambahkan.</p>
         </div>
-
-        <div class="project-card">
-            <h3>Analisis Sentimen</h3>
-            <p>Aplikasi Python untuk menganalisis sentimen media sosial menggunakan Machine Learning.</p>
-            <div class="tags">
-                <span>Python</span><span>Scikit-learn</span><span>Flask</span>
-            </div>
-            <div class="project-links">
-                <a href="#">Lihat Code</a>
-            </div>
-        </div>
-    </div>
+    @endif
 </section>
 @endsection
