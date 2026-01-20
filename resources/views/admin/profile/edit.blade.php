@@ -3,122 +3,126 @@
 @section('title', 'Edit Profile')
 
 @section('content')
-<div class="max-w-3xl mx-auto">
-    <div class="mb-8">
-        <h1 class="text-3xl font-bold text-gray-900">Edit Profile</h1>
-        <p class="text-gray-600 mt-2">Update informasi profile website Anda</p>
+<div class="max-w-4xl mx-auto">
+    <div class="mb-8 flex items-center justify-between">
+        <div>
+            <h1 class="text-3xl font-bold text-gray-800">Edit Profile</h1>
+            <p class="text-gray-600 text-sm mt-1">Update informasi profile website Anda</p>
+        </div>
+        <div class="w-12 h-12 glass-card flex items-center justify-center rounded-xl text-2xl">
+            👤
+        </div>
     </div>
 
-    <form action="{{ route('admin.profile.update') }}" method="POST" class="bg-white p-8 rounded-xl shadow-sm border border-gray-200">
+    <form action="{{ route('admin.profile.update') }}" method="POST" class="glass-card p-8">
         @csrf
         @method('PUT')
 
-        <div class="mb-6">
-            <label class="block text-sm font-medium text-gray-700 mb-2">Nama Lengkap *</label>
-            <input
-                type="text"
-                name="name"
-                required
-                value="{{ old('name', $profile->name) }}"
-                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-black focus:border-transparent"
-                placeholder="Contoh: Yohanes Damar S."
-            >
-            @error('name')
-                <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
-            @enderror
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+            <div>
+                <label class="block text-xs font-semibold text-gray-700 mb-3 uppercase tracking-wider">Nama Lengkap *</label>
+                <input
+                    type="text"
+                    name="name"
+                    required
+                    value="{{ old('name', $profile->name) }}"
+                    class="glass-input w-full px-4 py-3 text-sm text-gray-800 placeholder-gray-400"
+                >
+                @error('name')
+                    <p class="text-red-500 text-xs mt-2 font-medium">{{ $message }}</p>
+                @enderror
+            </div>
+
+            <div>
+                <label class="block text-xs font-semibold text-gray-700 mb-3 uppercase tracking-wider">Title/Tagline *</label>
+                <input
+                    type="text"
+                    name="title"
+                    required
+                    value="{{ old('title', $profile->title) }}"
+                    class="glass-input w-full px-4 py-3 text-sm text-gray-800 placeholder-gray-400"
+                >
+                @error('title')
+                    <p class="text-red-500 text-xs mt-2 font-medium">{{ $message }}</p>
+                @enderror
+            </div>
         </div>
 
         <div class="mb-6">
-            <label class="block text-sm font-medium text-gray-700 mb-2">Title/Tagline *</label>
-            <input
-                type="text"
-                name="title"
-                required
-                value="{{ old('title', $profile->title) }}"
-                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-black focus:border-transparent"
-                placeholder="Contoh: Web Developer & Tech Enthusiast"
-            >
-            @error('title')
-                <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
-            @enderror
-        </div>
-
-        <div class="mb-6">
-            <label class="block text-sm font-medium text-gray-700 mb-2">Bio/Deskripsi *</label>
+            <label class="block text-xs font-semibold text-gray-700 mb-3 uppercase tracking-wider">Bio/Deskripsi *</label>
             <textarea
                 name="bio"
                 rows="5"
                 required
-                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-black focus:border-transparent"
-                placeholder="Ceritakan tentang diri Anda..."
+                class="glass-input w-full px-4 py-3 text-sm text-gray-800 placeholder-gray-400"
             >{{ old('bio', $profile->bio) }}</textarea>
             @error('bio')
-                <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                <p class="text-red-500 text-xs mt-2 font-medium">{{ $message }}</p>
             @enderror
         </div>
 
-        <div class="mb-6">
-            <label class="block text-sm font-medium text-gray-700 mb-2">Email *</label>
+        <div class="mb-8">
+            <label class="block text-xs font-semibold text-gray-700 mb-3 uppercase tracking-wider">Email *</label>
             <input
                 type="email"
                 name="email"
                 required
                 value="{{ old('email', $profile->email) }}"
-                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-black focus:border-transparent"
-                placeholder="email@contoh.com"
+                class="glass-input w-full px-4 py-3 text-sm text-gray-800 placeholder-gray-400"
             >
             @error('email')
-                <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                <p class="text-red-500 text-xs mt-2 font-medium">{{ $message }}</p>
             @enderror
         </div>
 
-        <div class="border-t border-gray-200 my-6 pt-6">
-            <h3 class="text-lg font-semibold text-gray-900 mb-4">Social Media Links</h3>
+        <div class="border-t border-white/40 my-8 pt-8">
+            <h3 class="text-lg font-bold text-gray-800 mb-6 flex items-center gap-2">
+                <span>🌐</span> Social Media Links
+            </h3>
 
-            <div class="mb-6">
-                <label class="block text-sm font-medium text-gray-700 mb-2">LinkedIn</label>
-                <input
-                    type="url"
-                    name="linkedin"
-                    value="{{ old('linkedin', $profile->linkedin) }}"
-                    class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-black focus:border-transparent"
-                    placeholder="https://linkedin.com/in/..."
-                >
-            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div>
+                    <label class="block text-xs font-semibold text-gray-700 mb-3 uppercase tracking-wider">LinkedIn</label>
+                    <input
+                        type="url"
+                        name="linkedin"
+                        value="{{ old('linkedin', $profile->linkedin) }}"
+                        class="glass-input w-full px-4 py-3 text-sm text-gray-800 placeholder-gray-400"
+                    >
+                </div>
 
-            <div class="mb-6">
-                <label class="block text-sm font-medium text-gray-700 mb-2">GitHub</label>
-                <input
-                    type="url"
-                    name="github"
-                    value="{{ old('github', $profile->github) }}"
-                    class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-black focus:border-transparent"
-                    placeholder="https://github.com/..."
-                >
-            </div>
+                <div>
+                    <label class="block text-xs font-semibold text-gray-700 mb-3 uppercase tracking-wider">GitHub</label>
+                    <input
+                        type="url"
+                        name="github"
+                        value="{{ old('github', $profile->github) }}"
+                        class="glass-input w-full px-4 py-3 text-sm text-gray-800 placeholder-gray-400"
+                    >
+                </div>
 
-            <div class="mb-6">
-                <label class="block text-sm font-medium text-gray-700 mb-2">Instagram</label>
-                <input
-                    type="url"
-                    name="instagram"
-                    value="{{ old('instagram', $profile->instagram) }}"
-                    class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-black focus:border-transparent"
-                    placeholder="https://instagram.com/..."
-                >
+                <div>
+                    <label class="block text-xs font-semibold text-gray-700 mb-3 uppercase tracking-wider">Instagram</label>
+                    <input
+                        type="url"
+                        name="instagram"
+                        value="{{ old('instagram', $profile->instagram) }}"
+                        class="glass-input w-full px-4 py-3 text-sm text-gray-800 placeholder-gray-400"
+                    >
+                </div>
             </div>
         </div>
 
-        <div class="flex gap-4">
+        <div class="flex gap-4 pt-4">
             <button
                 type="submit"
-                class="flex-1 bg-black text-white py-3 rounded-lg font-medium hover:bg-gray-800 transition"
+                class="glass-button-primary flex-1 px-6 py-4 text-sm font-semibold rounded-2xl"
             >
                 Update Profile
             </button>
             <a
                 href="{{ route('admin.dashboard') }}"
-                class="px-6 py-3 border border-gray-300 rounded-lg font-medium hover:bg-gray-50 transition text-center"
+                class="glass-button px-6 py-4 text-sm font-semibold rounded-2xl text-center min-w-[120px]"
             >
                 Batal
             </a>
