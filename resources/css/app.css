@@ -4,7 +4,6 @@
 /* Import Tailwind CSS v4 */
 @import "tailwindcss";
 
-
 /* =========================================
    GLASSMORPHISM ADMIN PANEL - MONOCHROME WHITE
    ========================================= */
@@ -678,7 +677,7 @@ h1 {
     box-shadow: 0 10px 20px rgba(0,0,0,0.1);
 }
 
-/* Promo Gallery - Glass Polaroid */
+/* Promo Gallery - Glass Polaroid (FIXED POSITION di samping kiri/kanan) */
 .promo-section {
     padding: 40px 20px 80px 20px;
     position: relative;
@@ -781,6 +780,7 @@ h1 {
 .card-3 { transform: rotate(1.5deg); }
 .card-4 { transform: rotate(-2deg); }
 
+/* Desktop - Fixed Position di Kiri/Kanan */
 @media (min-width: 1200px) {
     .promo-section {
         padding: 0;
@@ -804,24 +804,28 @@ h1 {
         bottom: 18px;
     }
 
+    /* Card 1 - Kiri Atas */
     .card-1 {
         left: 12%;
         top: 150px;
         transform: rotate(-7deg);
     }
 
+    /* Card 2 - Kanan Atas */
     .card-2 {
         right: 12%;
         top: 150px;
         transform: rotate(6deg);
     }
 
+    /* Card 3 - Kiri Bawah */
     .card-3 {
         left: 12%;
         bottom: 80px;
         transform: rotate(5deg);
     }
 
+    /* Card 4 - Kanan Bawah */
     .card-4 {
         right: 12%;
         bottom: 80px;
@@ -839,6 +843,23 @@ h1 {
 
     .promo-card:hover img {
         filter: brightness(1.15) contrast(1.1);
+    }
+}
+
+/* Responsive - Mobile tetap grid */
+@media (max-width: 1199px) {
+    .promo-board {
+        grid-template-columns: repeat(2, 1fr) !important;
+        max-width: 550px !important;
+        gap: 35px !important;
+    }
+}
+
+@media (max-width: 768px) {
+    .promo-board {
+        grid-template-columns: 1fr !important;
+        max-width: 300px !important;
+        gap: 60px !important;
     }
 }
 

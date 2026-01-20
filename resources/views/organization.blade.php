@@ -4,19 +4,6 @@
 
 @section('content')
 
-<style>
-    .org-list { border-left-color: rgba(255, 255, 255, 0.3) !important; }
-    .org-item::before {
-        background: white !important;
-        border-color: rgba(255, 255, 255, 0.5) !important;
-        box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
-    }
-    .committee-item:hover {
-        background: rgba(255, 255, 255, 0.25) !important;
-        border-color: rgba(255, 255, 255, 0.6) !important;
-    }
-</style>
-
 <section class="container mx-auto px-4 pt-24 pb-10 mb-32 relative z-10">
     <div class="glass-card p-10 md:p-14 text-center rounded-3xl">
         <h1 class="text-4xl md:text-5xl font-extrabold text-white mb-4 drop-shadow-md">
@@ -28,21 +15,24 @@
     </div>
 </section>
 
-<div class="promo-section relative z-10 mb-40">
-    <div class="promo-board" style="gap: 150px; padding: 20px;">
+<!-- Promo Cards FIXED POSITION (Polaroid di samping kiri/kanan) -->
+<div class="promo-section">
+    <div class="promo-board">
         @foreach($organizations->take(4) as $index => $org)
         <a href="{{ $org->instagram_link ?? '#' }}" target="_blank" class="promo-card card-{{ $index + 1 }} group no-underline">
-            <div class="card-image bg-white/10">
+            <div class="card-image">
                 @if($org->image)
-                    <img src="{{ Storage::url($org->image) }}" alt="{{ $org->card_label }}" class="group-hover:scale-110 transition-transform duration-500">
+                    <img src="{{ Storage::url($org->image) }}" alt="{{ $org->card_label }}"
+                         class="group-hover:scale-110 transition-transform duration-500"
+                         style="filter: brightness(1.1) contrast(1.05);">
                 @else
-                    <div class="w-full h-full flex items-center justify-center bg-blue-500/20 text-white font-bold">
+                    <div class="w-full h-full flex items-center justify-center bg-blue-500/20 text-white font-bold text-2xl">
                         {{ $org->card_label ?? 'ORG' }}
                     </div>
                 @endif
             </div>
-            <span class="card-pin bg-red-500 border-2 border-white shadow-md"></span>
-            <span class="card-label drop-shadow-md">{{ $org->card_label ?? $org->position }}</span>
+            <span class="card-pin"></span>
+            <span class="card-label">{{ $org->card_label ?? $org->position }}</span>
         </a>
         @endforeach
     </div>
@@ -55,7 +45,7 @@
             Pengalaman Organisasi
         </h2>
 
-        <div class="org-list ml-2 md:ml-4">
+        <div class="org-list ml-2 md:ml-4" style="border-left-color: rgba(255, 255, 255, 0.3);">
             @foreach($organizations as $org)
             <div class="org-item mb-24 pl-8 relative">
                 <div class="org-date inline-block px-4 py-1 bg-white/20 border border-white/30 rounded-md text-white text-xs font-bold mb-3 backdrop-blur-sm">
@@ -80,9 +70,7 @@
 
             <div class="flex flex-col gap-8">
                 @foreach($committees as $committee)
-                <div class="committee-item flex flex-col md:flex-row items-start md:items-center p-6 rounded-xl border border-white/20 transition-all duration-300"
-                     style="background: rgba(255, 255, 255, 0.1); backdrop-filter: blur(5px);">
-
+                <div class="glass-committee-item flex flex-col md:flex-row items-start md:items-center p-6 rounded-xl border border-white/20 transition-all duration-300 hover:bg-white/20 hover:border-white/40 hover:translate-x-2">
                     <span class="c-year w-24 font-bold text-white text-lg">{{ $committee->year }}</span>
 
                     <div class="flex-1">
@@ -97,4 +85,20 @@
 
     </div>
 </section>
+
+<style>
+/* Organization Timeline Styling */
+.org-item::before {
+    background: white !important;
+    border-color: rgba(255, 255, 255, 0.5) !important;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+}
+
+/* Committee Item Glass */
+.glass-committee-item {
+    background: rgba(255, 255, 255, 0.12);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+}
+</style>
 @endsection
